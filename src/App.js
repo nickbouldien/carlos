@@ -2,32 +2,67 @@ import React, { Component } from 'react';
 
 class App extends Component {
   state = {
-    info: []
+    info: [],
+    randomNum: -1,
+    sysInfo: null,
   };
-  async componentDidMount() {
+  async componentDidMount() { // TODO - clean this up
     const data = await window.env();
-    const stuff = [];
+    const info = [];
     for (const type in data) {
-      // console.log("type", type);
-      stuff.push(`${type}: ${data[type]}`);
+      info.push(`${type}: ${data[type]}`);
     }
-    console.log("stuff1: ", stuff);
     this.setState(prevState => ({
       ...prevState,
-      info: stuff,
-    }))
+      info,
+    }));
+
+    const randomNum = await window.random();
+    this.setState(prevState => ({
+      ...prevState,
+      randomNum,
+    }));
+
+    const sysInfo = await window.systeminfo();
+    this.setState(prevState => ({
+      ...prevState,
+      sysInfo,
+    }));
   }
+
+  displaySysInfo = (data) => {
+    return (
+      <ul>
+        <li>
+          battery % remaining: {data.battery.percent}
+        </li>
+        <li>
+          CPU speed: {data.cpu.speed}
+        </li>
+        <li>
+          osInfo: <pre>{JSON.stringify(data.osInfo, null, 2)}</pre>
+        </li>
+      </ul>
+    );
+  };
+
   render() {
+    const { info, randomNum, sysInfo } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-        </header>
+        <p>
+          random #: {randomNum}
+        </p>
+
         <div>
           <ul>
-            { this.state.info && <Display stuff={this.state.info} /> }
+            { sysInfo && this.displaySysInfo(sysInfo) }
+          </ul>
+        </div>
+
+        <div>
+          <ul>
+            { info && info.length && <Display info={info} /> }
           </ul>
         </div>
 
@@ -36,9 +71,9 @@ class App extends Component {
   }
 }
 
-const Display = ({ stuff }) => {
+const Display = ({ info }) => {
   return (
-    stuff.map(thing => <li>{thing}</li>)
+    info.map(item => <li>{item}</li>)
   )
 };
 
