@@ -3,6 +3,9 @@ import React from "react";
 class CryptoKey extends React.Component {
   state = {
     key: null,
+    text: "",
+    encrypted: "",
+    decrypted: "",
   };
 
   async componentDidMount() {
@@ -13,6 +16,26 @@ class CryptoKey extends React.Component {
     }));
   }
 
+  handleChange = async (evt) => {
+    const text = evt.target.value;
+    const encryptedText = await window.encrypt(text);
+    this.setState(prevState => ({
+      ...prevState,
+      text,
+      encrypted: encryptedText,
+    }))
+  };
+
+  decryptText = async () => {
+    const encryptedText = this.state.encrypted;
+    const decryptedText = await window.decrypt(encryptedText);
+
+    this.setState(prevState => ({
+      ...prevState,
+      decrypted: decryptedText,
+    }))
+  };
+
   render() {
     return (
       <div>
@@ -21,9 +44,29 @@ class CryptoKey extends React.Component {
             pbkdf2
           </a>
         </h3>
-        <ul>
-          { this.state.key &&  <code>{JSON.stringify(this.state.key)}</code> }
-        </ul>
+        <p>
+          { this.state.key && <code>{JSON.stringify(this.state.key, null, 2)}</code> }
+        </p>
+
+        <input
+          onChange={this.handleChange}
+          placeholder={"enter text to encrypt"}
+          type={"text"}
+          value={this.state.text}
+        />
+
+        <p>
+          Entered Text: { this.state.text }
+        </p>
+        <p>
+          Encrypted Text: { this.state.encrypted }
+        </p>
+        <p>
+          Decrypted Text: { this.state.decrypted }
+        </p>
+
+        <button onClick={this.decryptText}>Decrypt text</button>
+
       </div>
     )
   }

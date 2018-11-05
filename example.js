@@ -1,20 +1,24 @@
 const carlo = require('carlo');
 const si = require('systeminformation');
-const pbkdf2 = require('./crypto').pbkdf2;
+const {
+  buf,
+  decrypt,
+  encrypt,
+  hash,
+  pbkdf2,
+} = require('./crypto');
 
 (async () => {
   const app = await carlo.launch();
 
   app.serveFolder(__dirname + '/build');
 
+  await app.exposeFunction('decrypt', decrypt);
+  await app.exposeFunction('encrypt', encrypt);
   await app.exposeFunction('env', _ => process.env);
-  await app.exposeFunction('systeminfo', systeminfo);
-  await app.exposeFunction('random', random);
-
   await app.exposeFunction('pbkdf2', pbkdf2);
-
-  const key = pbkdf2();
-  console.log("key!!! ", key);
+  await app.exposeFunction('random', random);
+  await app.exposeFunction('systeminfo', systeminfo);
 
   await app.load('index.html');
 })();
