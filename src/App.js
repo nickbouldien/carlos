@@ -1,80 +1,39 @@
 import React, { Component } from 'react';
+import CryptoKey from './CryptoKey';
+import EnvData from './EnvData';
+import SystemInfo from './SystemInfo';
 
 class App extends Component {
   state = {
-    info: [],
     randomNum: -1,
-    sysInfo: null,
   };
-  async componentDidMount() { // TODO - clean this up
-    const data = await window.env();
-    const info = [];
-    for (const type in data) {
-      info.push(`${type}: ${data[type]}`);
-    }
-    this.setState(prevState => ({
-      ...prevState,
-      info,
-    }));
-
+  async componentDidMount() {
     const randomNum = await window.random();
     this.setState(prevState => ({
       ...prevState,
       randomNum,
     }));
-
-    const sysInfo = await window.systeminfo();
-    this.setState(prevState => ({
-      ...prevState,
-      sysInfo,
-    }));
   }
 
-  displaySysInfo = (data) => {
-    return (
-      <ul>
-        <li>
-          battery % remaining: {data.battery.percent}
-        </li>
-        <li>
-          CPU speed: {data.cpu.speed}
-        </li>
-        <li>
-          osInfo: <pre>{JSON.stringify(data.osInfo, null, 2)}</pre>
-        </li>
-      </ul>
-    );
-  };
-
   render() {
-    const { info, randomNum, sysInfo } = this.state;
+    const { randomNum } = this.state;
     return (
       <div className="App">
+        <h1>Carlos</h1>
+
         <p>
           random #: {randomNum}
         </p>
 
-        <div>
-          <ul>
-            { sysInfo && this.displaySysInfo(sysInfo) }
-          </ul>
-        </div>
+        <SystemInfo />
 
-        <div>
-          <ul>
-            { info && info.length && <Display info={info} /> }
-          </ul>
-        </div>
+        <CryptoKey />
+
+        <EnvData />
 
       </div>
     );
   }
 }
-
-const Display = ({ info }) => {
-  return (
-    info.map(item => <li>{item}</li>)
-  )
-};
 
 export default App;

@@ -1,19 +1,21 @@
 const carlo = require('carlo');
 const si = require('systeminformation');
+const pbkdf2 = require('./crypto').pbkdf2;
 
 (async () => {
-  // Launch the browser.
   const app = await carlo.launch();
 
-  // Tell carlo where your web files are located.
   app.serveFolder(__dirname + '/build');
 
-  // Expose 'env' function in the web environment.
   await app.exposeFunction('env', _ => process.env);
   await app.exposeFunction('systeminfo', systeminfo);
   await app.exposeFunction('random', random);
 
-  // Navigate to the main page of your app.
+  await app.exposeFunction('pbkdf2', pbkdf2);
+
+  const key = pbkdf2();
+  console.log("key!!! ", key);
+
   await app.load('index.html');
 })();
 
