@@ -7,6 +7,12 @@ const {
   hash,
   pbkdf2,
 } = require('./crypto');
+const {
+  osConstants,
+  osCPUs,
+  osFreemem,
+  osHostname
+} = require('./osInfo');
 
 (async () => {
   const app = await carlo.launch();
@@ -16,6 +22,8 @@ const {
   await app.exposeFunction('decrypt', decrypt);
   await app.exposeFunction('encrypt', encrypt);
   await app.exposeFunction('env', _ => process.env);
+  await app.exposeFunction('osConstants', osConstants);
+  await app.exposeFunction('osFreemem', osFreemem);
   await app.exposeFunction('pbkdf2', pbkdf2);
   await app.exposeFunction('random', random);
   await app.exposeFunction('systeminfo', systeminfo);

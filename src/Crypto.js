@@ -1,6 +1,6 @@
 import React from "react";
 
-class CryptoKey extends React.Component {
+class Crypto extends React.Component {
   state = {
     key: null,
     text: "",
@@ -72,4 +72,4 @@ class CryptoKey extends React.Component {
   }
 }
 
-export default CryptoKey;
+export default Crypto;

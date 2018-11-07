@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Router } from "@reach/router";
 
-import CryptoKey from './CryptoKey';
+import Crypto from './Crypto';
 import EnvData from './EnvData';
+import OSInfo from './OSInfo';
 import SystemInfo from './SystemInfo';
 
 class App extends Component {
@@ -33,6 +34,9 @@ class App extends Component {
             <Link to="env-data">Environment Data</Link>
           </li>
           <li>
+            <Link to="os-info">OS info</Link>
+          </li>
+          <li>
             <Link to="system-info">SystemInfo</Link>
           </li>
         </ul>
@@ -42,8 +46,9 @@ class App extends Component {
         </p>
 
         <Router>
-          <CryptoKey path="crypto" />
+          <Crypto path="crypto" />
           <EnvData path="env-data" />
+          <OSInfo path="os-info" />
           <SystemInfo path="system-info" />
         </Router>
       </>
