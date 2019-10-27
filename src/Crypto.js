@@ -10,6 +10,7 @@ class Crypto extends React.Component {
 
   async componentDidMount() {
     const key = await window.pbkdf2();
+
     this.setState(prevState => ({
       ...prevState,
       key,
@@ -19,6 +20,7 @@ class Crypto extends React.Component {
   handleChange = async (evt) => {
     const text = evt.target.value;
     const encryptedText = await window.encrypt(text);
+
     this.setState(prevState => ({
       ...prevState,
       text,
