@@ -26,7 +26,13 @@ class App extends React.Component {
       <>
         <h2>Carlo && create-react-app</h2>
         <p>
-          <a href={"https://github.com/nickbouldien/carlos"}>carlos github repo</a>
+          <a
+            href={"https://github.com/nickbouldien/carlos"}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            carlos github repo
+          </a>
         </p>
 
         <ul>

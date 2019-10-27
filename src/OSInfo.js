@@ -22,7 +22,11 @@ class OSInfo extends React.Component {
     return (
       <div>
         <h3>
-          <a href="https://nodejs.org/api/os.html">
+          <a
+            href="https://nodejs.org/api/os.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             OS
           </a>
         </h3>
