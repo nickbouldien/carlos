@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, Router } from "@reach/router";
 
-import Crypto from './Crypto';
-import EnvData from './EnvData';
-import OSInfo from './OSInfo';
-import SystemInfo from './SystemInfo';
+import Crypto from './components/Crypto';
+import EnvData from './components/EnvData';
+import OSInfo from './components/OSInfo';
+import SystemInfo from './components/SystemInfo';
 
 class App extends React.Component {
   state = {
