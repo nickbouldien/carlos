@@ -13,27 +13,28 @@ class SystemInfo extends React.Component {
     }));
   }
 
-  displaySysInfo = (data) => {
-    return (
-      <ul>
-        <li>
-          battery % remaining: {data.battery.percent}
-        </li>
-        <li>
-          CPU speed: {data.cpu.speed}
-        </li>
-        <li>
-          osInfo: <pre>{JSON.stringify(data.osInfo, null, 2)}</pre>
-        </li>
-      </ul>
-    );
-  };
-
   render() {
+    const { sysInfo } = this.state;
+
     return (
       <div>
         <ul>
-          { this.state.sysInfo && this.displaySysInfo(this.state.sysInfo) }
+          { sysInfo ? (
+              <ul>
+                <li>
+                  battery % remaining: {sysInfo.battery.percent}
+                </li>
+                <li>
+                  CPU speed: {sysInfo.cpu.speed}
+                </li>
+                <li>
+                  osInfo: <pre>{JSON.stringify(sysInfo.osInfo, null, 2)}</pre>
+                </li>
+              </ul>
+            ) : (
+              <p>no system info to display</p>
+            )
+          }
         </ul>
       </div>
     )
