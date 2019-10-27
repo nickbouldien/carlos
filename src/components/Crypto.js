@@ -10,6 +10,7 @@ class Crypto extends React.Component {
 
   async componentDidMount() {
     const key = await window.pbkdf2();
+
     this.setState(prevState => ({
       ...prevState,
       key,
@@ -19,6 +20,7 @@ class Crypto extends React.Component {
   handleChange = async (evt) => {
     const text = evt.target.value;
     const encryptedText = await window.encrypt(text);
+
     this.setState(prevState => ({
       ...prevState,
       text,
@@ -40,7 +42,11 @@ class Crypto extends React.Component {
     return (
       <div>
         <h3>
-          <a href="https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2sync_password_salt_iterations_keylen_digest">
+          <a
+            href="https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2sync_password_salt_iterations_keylen_digest"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             pbkdf2
           </a>
         </h3>

@@ -1,5 +1,5 @@
 const carlo = require('carlo');
-const si = require('systeminformation');
+
 const {
   buf,
   decrypt,
@@ -13,6 +13,8 @@ const {
   osFreemem,
   osHostname
 } = require('./osInfo');
+const { random } = require('./random');
+const { systeminfo } = require('./systemInfo');
 
 (async () => {
   const app = await carlo.launch();
@@ -30,18 +32,3 @@ const {
 
   await app.load('index.html');
 })();
-
-async function systeminfo() {
-  const info = {};
-  await Promise.all([
-    si.battery().then(r => info.battery = r),
-    si.cpu().then(r => info.cpu = r),
-    si.osInfo().then(r => info.osInfo = r),
-  ]);
-  return info;
-}
-
-function random() {
-  return Math.floor(Math.random() * 10) + 1;
-}
-
