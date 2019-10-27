@@ -4,21 +4,27 @@ class OSInfo extends React.Component {
   state = {
     constants: null,
     freemem: null,
+    osHostname: null,
+    osCPUs: null,
   };
 
   async componentDidMount() {
     const constants = await window.osConstants();
     const freemem = await window.osFreemem();
+    const osHostname = await window.osHostname();
+    const osCPUs = await window.osCPUs();
 
     this.setState(prevState => ({
       ...prevState,
       constants,
       freemem,
+      osHostname,
+      osCPUs,
     }));
   }
 
   render() {
-    const { constants, freemem } = this.state;
+    const { constants, freemem, osHostname, osCPUs } = this.state;
     return (
       <div>
         <h3>
@@ -31,6 +37,16 @@ class OSInfo extends React.Component {
           </a>
         </h3>
 
+        { osHostname &&
+          <p>
+            os hostname: { osHostname }
+          </p>
+        }
+        { osCPUs &&
+          <p>
+            number of CPUs: { osCPUs.length }
+          </p>
+        }
         { freemem &&
           <p>
             Free memory: { freemem } bytes
