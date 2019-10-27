@@ -11,9 +11,9 @@
     "carlo": "^0.9.8",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.1.1",
-    "systeminformation": "^3.45.9",
-    "through2": "^2.0.3"
+    "react-scripts": "3.2.0",
+    "systeminformation": "^4.14.17",
+    "through2": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
